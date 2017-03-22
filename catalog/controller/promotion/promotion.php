@@ -150,7 +150,14 @@ class ControllerPromotionPromotion extends Controller {
 
 		$this->load->model('promotion/promotion');
 		
-		$product_id = mt_rand(28,49);
+		$generate = mt_rand(0,1);
+		if ($generate == 0){
+			$product_id = mt_rand(28,36);
+		}
+		else{
+			$product_id = mt_rand(40,49);
+		}
+		
 		
 		$product_info = $this->model_promotion_promotion->getProduct($product_id);
 
