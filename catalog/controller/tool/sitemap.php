@@ -8,10 +8,11 @@ class ControllerToolSitemap extends Controller{
         print_r($results);
         exit;*/
 
-        $doc = new DOMDocument;
+        $doc = new DOMDocument('1.0');
 
         $urlset = $doc->createElement("urlset");
-        $root = $doc->appendChild($urlset);
+        $doc->appendChild($urlset);
+
         foreach ($products as $product){
             $url = $doc->createElement('url');
             $urlset->appendChild($url);
@@ -19,21 +20,17 @@ class ControllerToolSitemap extends Controller{
             $location_value = 'http://http://localhost/index.php?route=product/product&product_id='.$product['product_id'];
             $location_value = str_replace('&', '&amp;', $location_value);
             $location = $doc->createElement('loc', $location_value);
-            /**
-             *http://localhost/index.php?route=product/category&path=18_46
-            <lastmod>2013-11-18</lastmod>
-            <changefreq>monthly</changefreq>
-            <priority>0.8</priority>
-             */
             $url->appendChild($location);
-            $lastmod = $doc->createElement('lastmod', date('d m Y', time()));
+
+            $lastmod = $doc->createElement('lastmod', date('Y-m-d', time()));
             $url->appendChild($lastmod);
+
             $changefreq = $doc->createElement('changefreq', 'monthly');
             $url->appendChild($changefreq);
+
             $priority = $doc->createElement('priority', '0.8');
             $url->appendChild($priority);
         }
-
 
         $this->response->addHeader('Content-Type: application/xml');
         $this->response->setOutput($doc->saveXML());
