@@ -1,7 +1,6 @@
 <?php
 class ControllerToolSitemap extends Controller{
     public function index(){
-
         $this->load->model('catalog/product');
         $products = $this->model_catalog_product->getProducts([]);
         /*print '<pre>';
@@ -9,7 +8,6 @@ class ControllerToolSitemap extends Controller{
         exit;*/
 
         $doc = new DOMDocument('1.0');
-
         $urlset = $doc->createElement("urlset");
         $doc->appendChild($urlset);
 
@@ -31,7 +29,6 @@ class ControllerToolSitemap extends Controller{
             $priority = $doc->createElement('priority', '0.8');
             $url->appendChild($priority);
         }
-
         $this->response->addHeader('Content-Type: application/xml');
         $this->response->setOutput($doc->saveXML());
     }

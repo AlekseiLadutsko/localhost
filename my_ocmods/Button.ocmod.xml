@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>Изменение кнопки корзина</name>
+    <version>1.1</version>
+    <code>12345678910</code>
+    <author>OpenCart Тест</author>
+    <link>http://www.opencart.com</link>
+    <file path="catalog\controller\product\product.php">
+        <operation>
+            <search><![CDATA[
+            $data['stock'] = $product_info['stock_status'];
+            ]]></search>
+            <add position="after"><![CDATA[
+			$data['button_cart'] = 'Нет в наличии. Под заказ';
+            ]]></add>
+        </operation>
+    </file>
+</modification>

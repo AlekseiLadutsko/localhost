@@ -50,7 +50,8 @@ class ModelPromotionPromotion extends Model {
 				'status'           => $query->row['status'],
 				'date_added'       => $query->row['date_added'],
 				'date_modified'    => $query->row['date_modified'],
-				'viewed'           => $query->row['viewed']
+				'viewed'           => $query->row['viewed'],
+                'promoprice' => 8900
 			);
 		} else {
 			return false;

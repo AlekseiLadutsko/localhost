@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>Тестовый модификатор</name>
+    <version>1.0</version>
+    <code>123456789</code>
+    <author>OpenCart Тест</author>
+    <link>http://www.opencart.com</link>
+    <file path="catalog\view\theme\default\template\product\product.tpl">
+        <operation>
+            <search><![CDATA[
+            <li><?php echo $text_stock; ?> <?php echo $stock; ?></li>
+            ]]></search>
+            <add position="after"><![CDATA[
+            <li>Импортер: ООО Рога и Копыта</li>
+            ]]></add>
+        </operation>
+    </file>
+</modification>

@@ -143,10 +143,10 @@
             <?php } else { ?>
             <li><span style="text-decoration: line-through;"><?php echo $price; ?></span></li>
             <li>
-              <h2><?php echo $price = round($price*(1-(mt_rand(1,70)/100)),2); ?></h2>
+              <h2><?php echo $promoprice; ?></h2>
             <?php } ?>
             <?php if ($tax) { ?>
-            <li><?php echo $text_tax; ?> <?php echo round($price-($price*0.23),2);; ?></li>
+            <li><?php echo $text_tax; ?> <?php echo $promoprice;; ?></li>
             <?php } ?>
             <?php if ($points) { ?>
             <li><?php echo $text_points; ?> <?php echo $points; ?></li>
