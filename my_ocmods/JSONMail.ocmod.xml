@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <modification>
     <name>Добавление покупки в один клик</name>
-    <version>1.1</version>
-    <code>123456789</code>
+    <version>1.2</version>
+    <code>123456789123456789</code>
     <author>OpenCart Тест</author>
     <link>http://www.opencart.com</link>
     <file path="catalog\view\theme\default\template\product\product.tpl">
@@ -16,15 +16,40 @@
         </operation>
         <operation>
             <search><![CDATA[
+            <?php echo $column_right; ?></div>
+            ]]></search>
+            <add position = 'after' trim = 'true'><![CDATA[
+     <div class = 'modalWindow' id = 'modalWindow'>
+       <form method = "POST" id = "userDataForm" onsubmit="call()">
+         <p>Введите ваше имя:</p>
+         <input type = 'text' id = 'userName' />
+         <p>Введите номер телефона:</p>
+         <input type = 'text' id = 'userPhone' />
+         <button type = 'button' id = 'sendData'>Купить</button>
+         <button type = 'reset' id = 'resetData'>Закрыть</button>
+         <p id = 'result'></p>
+       </form>
+     </div>
+            ]]></add>
+        </operation>
+        <operation>
+            <search><![CDATA[
             $('#button-cart').on('click', function() {
             ]]></search>
             <add position = 'before' trim = 'true'><![CDATA[
+$('#modalWindow').hide();
 $(document).on('click', '#button-1click', function() {
-    $.post("index.php?route=product/product/process1Click", function (data) {
-        if(data.hasOwnProperty('success') && data.success == true){
-            console.log(data.message);
+    $('#modalWindow').show();
+});
+$(document).on('click', '#resetData', function() {
+    $('#modalWindow').hide();
+});
+$(document).on('click', '#sendData', function() {
+    $.post('index.php?route=product/product/process1Click&userName='+$('#userName').val()+'&userPhone='+$('#userPhone').val(), function (data) {
+        if (data.hasOwnProperty('success') && data.success == true) {
+            $('#result').html(data.message);
         }
-    })
+    });
 });
             ]]></add>
         </operation>
@@ -37,7 +62,7 @@ $(document).on('click', '#button-1click', function() {
             <add position = 'before'><![CDATA[
     public function process1Click(){
         $result['success'] = true;
-        $result['message'] = 'Ваша заявка успешно отправлена на почту';
+        $result['message'] = $_GET['userName'].', Ваша заявка успешно отправлена. Мы свяжемся с вами по телефону:'.$_GET['userPhone'];
 
         $mail = new Mail();
         $mail->protocol = $this->config->get('config_mail_protocol');
@@ -58,6 +83,30 @@ $(document).on('click', '#button-1click', function() {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($result));
     }
+            ]]></add>
+        </operation>
+    </file>
+    <file path="catalog\view\theme\default\stylesheet\stylesheet.css">
+        <operation>
+            <search><![CDATA[
+            body {
+            ]]></search>
+            <add position = 'before'><![CDATA[
+.modalWindow{
+	position: fixed;
+	top: 50%;
+	left:50%;
+	transform: translate(-50%,-50%);
+	width: 250px;
+	height: 300px;
+	background: #ddd;
+	text-align: center;
+	padding: 50px 0;
+}
+.modalWindow input{
+	margin: 0 auto 10px auto;
+	display: block;
+}
             ]]></add>
         </operation>
     </file>

@@ -5,7 +5,7 @@ class ControllerProductProduct extends Controller {
 
     public function process1Click(){
         $result['success'] = true;
-        $result['message'] = 'Ваша заявка успешно отправлена на почту';
+        $result['message'] = $_GET['userName'].', Ваша заявка успешно отправлена. Мы свяжемся с вами по телефону:'.$_GET['userPhone'];
 
         $mail = new Mail();
         $mail->protocol = $this->config->get('config_mail_protocol');

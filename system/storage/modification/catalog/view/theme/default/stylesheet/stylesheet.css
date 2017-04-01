@@ -13,6 +13,23 @@
 	margin: 0 auto 10px auto;
 	display: block;
 }
+
+.modalWindow{
+	position: fixed;
+	top: 50%;
+	left:50%;
+	transform: translate(-50%,-50%);
+	width: 250px;
+	height: 300px;
+	background: #ddd;
+	text-align: center;
+	padding: 50px 0;
+}
+.modalWindow input{
+	margin: 0 auto 10px auto;
+	display: block;
+}
+            
 body {
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 400;

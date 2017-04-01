@@ -393,6 +393,17 @@
       <?php } ?>
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>
+<div class = 'modalWindow' id = 'modalWindow'>
+       <form method = "POST" id = "userDataForm" onsubmit="call()">
+         <p>Введите ваше имя:</p>
+         <input type = 'text' id = 'userName' />
+         <p>Введите номер телефона:</p>
+         <input type = 'text' id = 'userPhone' />
+         <button type = 'button' id = 'sendData'>Купить</button>
+         <button type = 'reset' id = 'resetData'>Закрыть</button>
+         <p id = 'result'></p>
+       </form>
+     </div>
 </div>
 <script type="text/javascript"><!--
 $('select[name=\'recurring_id\'], input[name="quantity"]').change(function(){
@@ -415,12 +426,19 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function(){
 });
 //--></script>
 <script type="text/javascript"><!--
+$('#modalWindow').hide();
 $(document).on('click', '#button-1click', function() {
-    $.post("index.php?route=product/product/process1Click", function (data) {
-        if(data.hasOwnProperty('success') && data.success == true){
-            console.log(data.message);
+    $('#modalWindow').show();
+});
+$(document).on('click', '#resetData', function() {
+    $('#modalWindow').hide();
+});
+$(document).on('click', '#sendData', function() {
+    $.post('index.php?route=product/product/process1Click&userName='+$('#userName').val()+'&userPhone='+$('#userPhone').val(), function (data) {
+        if (data.hasOwnProperty('success') && data.success == true) {
+            $('#result').html(data.message);
         }
-    })
+    });
 });
 $('#button-cart').on('click', function() {
 	$.ajax({
