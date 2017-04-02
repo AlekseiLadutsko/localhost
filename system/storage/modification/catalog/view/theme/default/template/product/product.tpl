@@ -431,6 +431,7 @@ $(document).on('click', '#button-1click', function() {
     $('#modalWindow').show();
 });
 $(document).on('click', '#resetData', function() {
+    $('#result').html('');
     $('#modalWindow').hide();
 });
 $(document).on('click', '#sendData', function() {

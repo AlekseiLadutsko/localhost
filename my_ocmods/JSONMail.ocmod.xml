@@ -42,6 +42,7 @@ $(document).on('click', '#button-1click', function() {
     $('#modalWindow').show();
 });
 $(document).on('click', '#resetData', function() {
+    $('#result').html('');
     $('#modalWindow').hide();
 });
 $(document).on('click', '#sendData', function() {
@@ -62,7 +63,7 @@ $(document).on('click', '#sendData', function() {
             <add position = 'before'><![CDATA[
     public function process1Click(){
         $result['success'] = true;
-        $result['message'] = $_GET['userName'].', Ваша заявка успешно отправлена. Мы свяжемся с вами по телефону:'.$_GET['userPhone'];
+        $result['message'] = $_GET['userName'].', Ваша заявка успешно отправлена. Мы свяжемся с вами по телефону: '.$_GET['userPhone'];
 
         $mail = new Mail();
         $mail->protocol = $this->config->get('config_mail_protocol');
