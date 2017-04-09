@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>Добавление примечания в опциях товара</name>
+    <version>1.0</version>
+    <code>123456789123456789</code>
+    <author>Aleksei Ladutsko</author>
+    <link>http://www.opencart.com</link>
+    <file path="admin\model\catalog\product.php">
+        <operation>
+            <search><![CDATA[
+            $this->db->query("INSERT INTO " . DB_PREFIX . "product_option_value SET product_option_value_id = '" . (int)$product_option_value['product_option_value_id'] . "', product_option_id = '" . (int)$product_option_id . "', product_id = '" . (int)$product_id . "', option_id = '" . (int)$product_option['option_id'] . "', option_value_id = '" . (int)$product_option_value['option_value_id'] . "', quantity = '" . (int)$product_option_value['quantity'] . "', subtract = '" . (int)$product_option_value['subtract'] . "', price = '" . (float)$product_option_value['price'] . "', price_prefix = '" . $this->db->escape($product_option_value['price_prefix']) . "', points = '" . (int)$product_option_value['points'] . "', points_prefix = '" . $this->db->escape($product_option_value['points_prefix']) . "', weight = '" . (float)$product_option_value['weight'] . "', weight_prefix = '" . $this->db->escape($product_option_value['weight_prefix']) . "'");
+            ]]></search>
+            <add position="replace"><![CDATA[
+			$this->db->query("INSERT INTO " . DB_PREFIX . "product_option_value SET product_option_value_id = '" . (int)$product_option_value['product_option_value_id'] . "', product_option_id = '" . (int)$product_option_id . "', product_id = '" . (int)$product_id . "', option_id = '" . (int)$product_option['option_id'] . "', option_value_id = '" . (int)$product_option_value['option_value_id'] . "', quantity = '" . (int)$product_option_value['quantity'] . "', subtract = '" . (int)$product_option_value['subtract'] . "', price = '" . (float)$product_option_value['price'] . "', price_prefix = '" . $this->db->escape($product_option_value['price_prefix']) . "', points = '" . (int)$product_option_value['points'] . "', points_prefix = '" . $this->db->escape($product_option_value['points_prefix']) . "', weight = '" . (float)$product_option_value['weight'] . "', weight_prefix = '" . $this->db->escape($product_option_value['weight_prefix']) . "', note = '". $this->db->escape($product_option_value['note'])  ."'");
+            ]]></add>
+        </operation>
+        <operation>
+            <search><![CDATA[
+            'weight_prefix'           => $product_option_value['weight_prefix']
+            ]]></search>
+            <add position="after"><![CDATA[
+            ,'note'                    => $product_option_value['note']
+            ]]></add>
+        </operation>
+    </file>
+    <file path="admin\controller\catalog\product.php">
+        <operation>
+            <search><![CDATA[
+            $data['entry_date_available'] = $this->language->get('entry_date_available');
+            ]]></search>
+            <add position="after"><![CDATA[
+            $data['entry_note'] = $this->language->get('entry_note');
+            ]]></add>
+        </operation>
+        <operation>
+            <search><![CDATA[
+            'weight_prefix'           => $product_option_value['weight_prefix']
+            ]]></search>
+            <add position="after"><![CDATA[
+            ,'note'                    => $product_option_value['note']
+            ]]></add>
+        </operation>
+    </file>
+    <file path="admin\language\ru-ru\catalog\product.php">
+        <operation>
+            <search><![CDATA[
+            $_['entry_date_available']      = 'Дата поступления:';
+            ]]></search>
+            <add position="after"><![CDATA[
+            $_['entry_note']          	    = 'Примечание:';
+            ]]></add>
+        </operation>
+    </file>
+    <file path="admin\view\template\catalog\product_form.tpl">
+        <operation>
+            <search><![CDATA[
+                            <tr>
+                              <td class="text-left"><?php echo $entry_option_value; ?></td>
+            ]]></search>
+            <add position="after"><![CDATA[
+            <td class="text-right"><?php echo $entry_note; ?></td>
+            ]]></add>
+        </operation>
+        <operation>
+            <search><![CDATA[
+            <td class="text-right"><input type="text" name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][quantity]" value="<?php echo $product_option_value['quantity']; ?>" placeholder="<?php echo $entry_quantity; ?>" class="form-control" /></td>
+            ]]></search>
+            <add position="before"><![CDATA[
+            <td class="text-right"><input type="text" name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][note]" value="<?php echo $product_option_value['note']; ?>" placeholder="<?php echo $entry_note; ?>" class="form-control" /></td>
+            ]]></add>
+        </operation>
+        <operation>
+            <search><![CDATA[
+            html += '  <td class="text-right"><input type="text" name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][quantity]" value="" placeholder="<?php echo $entry_quantity; ?>" class="form-control" /></td>';
+            ]]></search>
+            <add position="before"><![CDATA[
+            html += '  <td class="text-right"><input type="text" name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][note]" value="" placeholder="<?php echo $entry_note; ?>" class="form-control" /></td>';
+            ]]></add>
+        </operation>
+    </file>
+    <file path="catalog\model\catalog\product.php">
+        <operation>
+            <search><![CDATA[
+            'weight_prefix'           => $product_option_value['weight_prefix']
+            ]]></search>
+            <add position="after"><![CDATA[
+            ,'note'                    => $product_option_value['note']
+            ]]></add>
+        </operation>
+    </file>
+    <file path="catalog\controller\product\product.php">
+        <operation>
+            <search><![CDATA[
+            'price_prefix'            => $option_value['price_prefix']
+            ]]></search>
+            <add position="after"><![CDATA[
+            ,'note'                    => $option_value['note']
+            ]]></add>
+        </operation>
+    </file>
+    <file path="catalog\view\theme\default\template\product\product.tpl">
+        <operation>
+            <search><![CDATA[
+            (<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?>)
+            ]]></search>
+            <add position="replace"><![CDATA[
+            (<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price'].' '.$option_value['note']; ?>)
+            ]]></add>
+        </operation>
+    </file>
+</modification>

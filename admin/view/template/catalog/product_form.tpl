@@ -592,6 +592,7 @@
                           <thead>
                             <tr>
                               <td class="text-left"><?php echo $entry_option_value; ?></td>
+                              <td class="text-right"><?php echo $entry_note; ?></td>
                               <td class="text-right"><?php echo $entry_quantity; ?></td>
                               <td class="text-left"><?php echo $entry_subtract; ?></td>
                               <td class="text-right"><?php echo $entry_price; ?></td>
@@ -615,6 +616,7 @@
                                   <?php } ?>
                                 </select>
                                 <input type="hidden" name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][product_option_value_id]" value="<?php echo $product_option_value['product_option_value_id']; ?>" /></td>
+                              <td class="text-right"><input type="text" name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][note]" value="<?php echo $product_option_value['note']; ?>" placeholder="<?php echo $entry_note; ?>" class="form-control" /></td>
                               <td class="text-right"><input type="text" name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][quantity]" value="<?php echo $product_option_value['quantity']; ?>" placeholder="<?php echo $entry_quantity; ?>" class="form-control" /></td>
                               <td class="text-left"><select name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][subtract]" class="form-control">
                                   <?php if ($product_option_value['subtract']) { ?>
@@ -1312,6 +1314,7 @@ function addOptionValue(option_row) {
 	html += '  <td class="text-left"><select name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][option_value_id]" class="form-control">';
 	html += $('#option-values' + option_row).html();
 	html += '  </select><input type="hidden" name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][product_option_value_id]" value="" /></td>';
+	html += '  <td class="text-right"><input type="text" name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][note]" value="" placeholder="<?php echo $entry_note; ?>" class="form-control" /></td>';
 	html += '  <td class="text-right"><input type="text" name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][quantity]" value="" placeholder="<?php echo $entry_quantity; ?>" class="form-control" /></td>';
 	html += '  <td class="text-left"><select name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][subtract]" class="form-control">';
 	html += '    <option value="1"><?php echo $text_yes; ?></option>';
@@ -1337,7 +1340,6 @@ function addOptionValue(option_row) {
 
 	$('#option-value' + option_row + ' tbody').append(html);
 	$('[rel=tooltip]').tooltip();
-
 	option_value_row++;
 }
 //--></script>

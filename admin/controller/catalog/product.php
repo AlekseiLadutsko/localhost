@@ -640,6 +640,7 @@ class ControllerCatalogProduct extends Controller {
 		$data['entry_minimum'] = $this->language->get('entry_minimum');
 		$data['entry_shipping'] = $this->language->get('entry_shipping');
 		$data['entry_date_available'] = $this->language->get('entry_date_available');
+        $data['entry_note'] = $this->language->get('entry_note');
 		$data['entry_quantity'] = $this->language->get('entry_quantity');
 		$data['entry_stock_status'] = $this->language->get('entry_stock_status');
 		$data['entry_price'] = $this->language->get('entry_price');
@@ -1209,6 +1210,8 @@ class ControllerCatalogProduct extends Controller {
 			$product_options = array();
 		}
 
+        //print_r($product_options); exit;
+
 		$data['product_options'] = array();
 
 		foreach ($product_options as $product_option) {
@@ -1226,7 +1229,8 @@ class ControllerCatalogProduct extends Controller {
 						'points'                  => $product_option_value['points'],
 						'points_prefix'           => $product_option_value['points_prefix'],
 						'weight'                  => $product_option_value['weight'],
-						'weight_prefix'           => $product_option_value['weight_prefix']
+						'weight_prefix'           => $product_option_value['weight_prefix'],
+                        'note'                    => $product_option_value['note']
 					);
 				}
 			}
@@ -1241,7 +1245,7 @@ class ControllerCatalogProduct extends Controller {
 				'required'             => $product_option['required']
 			);
 		}
-
+        //print_r($product_option_value_data); exit;
 		$data['option_values'] = array();
 
 		foreach ($data['product_options'] as $product_option) {
@@ -1296,7 +1300,7 @@ class ControllerCatalogProduct extends Controller {
 				'date_end'          => ($product_special['date_end'] != '0000-00-00') ? $product_special['date_end'] :  ''
 			);
 		}
-		
+
 		// Image
 		if (isset($this->request->post['image'])) {
 			$data['image'] = $this->request->post['image'];
