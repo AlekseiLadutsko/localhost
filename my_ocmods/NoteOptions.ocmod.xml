@@ -54,8 +54,7 @@
     <file path="admin\view\template\catalog\product_form.tpl">
         <operation>
             <search><![CDATA[
-                            <tr>
-                              <td class="text-left"><?php echo $entry_option_value; ?></td>
+            <td class="text-left"><?php echo $entry_option_value; ?></td>
             ]]></search>
             <add position="after"><![CDATA[
             <td class="text-right"><?php echo $entry_note; ?></td>
